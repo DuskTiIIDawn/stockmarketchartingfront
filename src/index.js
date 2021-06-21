@@ -1,17 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import Main from './Components/Main';
+import './Styles/stylesheet.css';
+import '../node_modules/bootstrap/dist/js/bootstrap.js';
+import '../node_modules/bootstrap/dist/css/bootstrap.css';
+import '../node_modules/jquery/dist/jquery';
+import '../node_modules/popper.js/dist/popper';
+import 'font-awesome/css/font-awesome.min.css';
+import '../node_modules/bootstrap-select/dist/css/bootstrap-select.min.css';
+import '../node_modules/bootstrap-select/dist/js/bootstrap-select.min.js';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
+
+import { BrowserRouter } from 'react-router-dom';
+
+
+
+window.base_url = 'http://localhost:8080';
+
+ReactDOM.render(<BrowserRouter><Main /></BrowserRouter>, document.getElementById('root'));
