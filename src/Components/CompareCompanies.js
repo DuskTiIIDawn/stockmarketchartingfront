@@ -123,7 +123,7 @@ export default class Chart extends Component {
                     const stockExchangeName = this.state.companyStockExchanges.get(parseInt(stockCodeNo))?.stockExchangeName
                     let data = []
                     res.data.result?.map((sp, index) => {
-                        data[index] = [sp.dateTime.replace(/T/, " "), companyName + "- " + stockExchangeName, sp.currentPrice];
+                        data[index] = [sp.dateTime?.replace(/T/, " "), companyName + "- " + stockExchangeName, sp.currentPrice];
                     });
 
                     if (this.state.timeseriesDs.dataSource.data)
