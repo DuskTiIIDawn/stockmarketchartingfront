@@ -17,6 +17,6 @@ import { BrowserRouter } from 'react-router-dom';
 
 
 
-window.base_url = 'http://localhost:8080';
+window.base_url = 'https://glacial-ridge-65812.herokuapp.com';
 
 ReactDOM.render(<BrowserRouter><Main /></BrowserRouter>, document.getElementById('root'));
