@@ -44,7 +44,7 @@ export default class SectorList extends Component {
     render() {
         return (
             <div>
-                <div class="col-md-8">
+                <div class="col-md-8 ml-2">
                     <Link to={{ pathname: "/sector/addEdit" }}><button class="btn btn-success "><i className="fa fa-plus small" ></i> Sector</button></Link>
                 </div>
 

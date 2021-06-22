@@ -92,7 +92,6 @@ export default class AddEditStockExchange extends Component {
                         </div>
                     </div>
                 </form>
-
             </div>
         )
     }

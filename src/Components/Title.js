@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
-class Title extends Component{
+class Title extends Component {
 
-    render(){
-        return <h1>Stock Market Charting</h1>;
+    render() {
+        return <h1 class="ml-4">Stock Market Charting</h1>;
     }
 }
 
-export  default Title
+export default Title

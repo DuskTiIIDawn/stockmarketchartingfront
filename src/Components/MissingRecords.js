@@ -48,6 +48,8 @@ export default class MissingRecords extends Component {
         })
             .then(res => {
                 this.setState({ missingRecords: res.data });
+
+
             })
     }
 
@@ -94,7 +96,7 @@ export default class MissingRecords extends Component {
                         <li class="card " key={index}>
                             <div class="row">
                                 <div class="col-md-3">
-                                    {index + 1}&nbsp;  {r}
+                                    {index + 1}&nbsp;  {r[2]}/{r[1]}/{r[0]}
                                 </div>
                                 <div class="col-md-6">
                                 </div>

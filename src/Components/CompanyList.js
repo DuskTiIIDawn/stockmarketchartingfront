@@ -22,9 +22,11 @@ export default class CompanyList extends Component {
 
   componentDidMount() {
 
-    axios.get(`${window.base_url}/sector`, {}).then((res) => {
-      this.setState({ sectors: res.data })
-    })
+    if (this.props.isAdmin) {
+      axios.get(`${window.base_url}/sector`, {}).then((res) => {
+        this.setState({ sectors: res.data })
+      })
+    }
     this.refreshCompany();
   }
 
@@ -92,23 +94,22 @@ export default class CompanyList extends Component {
   render() {
     return (
       <div>
-        <div class="row">
-
-
-          <div class="col-md-8">
-            <Link to="/company/addEdit"><button class="btn btn-success "><i className="fa fa-plus small" ></i> Company</button></Link>
+        {this.props.isAdmin && (
+          <div class="row">
+            <div class="col-md-8 ml-4">
+              <Link to="/company/addEdit"><button class="btn btn-success "><i className="fa fa-plus small" ></i> Company</button></Link>
+            </div>
+            <form class="form-inline my-2 my-lg-0 col-md-4 ml-auto" action="#">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" onChange={this.handleSearchSubmit} required />
+              <button class="btn btn-outline-success my-2 my-sm-0 " type="submit" disabled>Search</button>
+            </form>
           </div>
-          <form class="form-inline my-2 my-lg-0 col-md-4" action="#">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" onChange={this.handleSearchSubmit} required />
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" disabled>Search</button>
-          </form>
-        </div>
+        )}
 
 
 
         <ul class="card container">
           {!this.state.companies.length && <li>No Records Found</li>}
-
           {this.state.companies.map((company, index) =>
             <li class="card " key={index}>
               <div class="row">
@@ -116,11 +117,8 @@ export default class CompanyList extends Component {
                   {index + 1}&nbsp;  {company.companyName}
                 </div >
 
-
-
                 <div class="col-md-5">
-                  {!company.sector && (
-
+                  {!company.sector && this.props.isAdmin && (
                     <form onSubmit={this.handleSectorAdd} action="#" method="post" cid={company.id}>
                       <div class="form-group row">
 
@@ -144,11 +142,12 @@ export default class CompanyList extends Component {
                       <div class="col-sm-6">
                         <input type="text" class="form-control" id={company.id} name="sectorName" value={company.sector.sectorName} disabled />
                       </div>
-
-                      <button class="btn btn-danger col-auto" onClick={this.handleSectorRemove} cid={company.id}><i className="fa fa-minus small" cid={company.id}></i></button>
-
+                      {this.props.isAdmin &&
+                        <button class="btn btn-danger col-auto" onClick={this.handleSectorRemove} cid={company.id}><i className="fa fa-minus small" cid={company.id}></i></button>
+                      }
                     </div>
                   )}
+
 
                 </div>
 
@@ -160,14 +159,16 @@ export default class CompanyList extends Component {
                   <div class="col-md-4 col-sm-4">
                     <Link to={{ pathname: "/company/info", state: { cid: company.id } }}><button class="btn btn-secondary">INFO</button></Link>
                   </div>
+                  {this.props.isAdmin && (<div class="row">
+                    < div class="col-md-4 col-sm-4">
+                      <Link to={{ pathname: "/company/addEdit", state: { cid: company.id } }}><button class="btn btn-dark">Edit</button></Link>
+                    </div>
 
-                  <div class="col-md-4 col-sm-4">
-                    <Link to={{ pathname: "/company/addEdit", state: { cid: company.id } }}><button class="btn btn-dark">Edit</button></Link>
-                  </div>
-
-                  <div class=" col-md-4 ">
-                    <button class="btn btn-danger" onClick={this.remove} cid={company.id}>Delete</button>
-                  </div>
+                    <div class=" col-md-4 ">
+                      <button class="btn btn-danger" onClick={this.remove} cid={company.id}>Delete</button>
+                    </div>
+                  </div>)
+                  }
                 </div>
               </div>
             </li>

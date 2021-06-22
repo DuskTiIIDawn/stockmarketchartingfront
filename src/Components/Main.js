@@ -14,6 +14,9 @@ import AddEditStockCode from './AddEditStockCode';
 import AddEditSector from './AddEditSector';
 import IPOList from './IPOList';
 import IPO from './IPO';
+import Login from './Login';
+import SignUp from './SignUp';
+import UserInfo from './UserInfo';
 import MissingRecords from './MissingRecords';
 import SeeStockPrice from './SeeStockPrice';
 import AddEditIPO from './AddEditIPO';
@@ -22,36 +25,66 @@ import { React, Component } from 'react';
 import { Route } from 'react-router-dom';
 
 
+import { authenticationService } from '../_services/authenticationService';
+import { Role } from '../_helpers/role';
+import { PrivateRoute } from './PrivateRouter';
+
+
+
+
 
 export default class Main extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentUser: null,
+            isAdmin: false
+        };
+        this.logout = this.logout.bind(this)
+    }
+
+
+    componentDidMount() {
+        authenticationService.currentUser.subscribe(x => this.setState({
+            currentUser: x,
+            isAdmin: x && x.isAdmin
+        }));
+    }
+
+    logout() {
+        authenticationService.logout();
+
+    }
     render() {
         return (
             <div>
                 <Title />
-                <Navbar />
-                <Route exact path="/company" component={CompanyList} />
-                <Route exact path="/company/addEdit" component={AddEditCompany} />
-                <Route exact path="/company/info" component={Company} />
-                <Route exact path="/sector" component={SectorList} />
-                <Route exact path="/sector/info" component={Sector} />
-                <Route exact path="/sector/addEdit" component={AddEditSector} />
-                <Route exact path="/stockCode" component={StockCodeList} />
-                <Route exact path="/stockCode/addEdit" component={AddEditStockCode} />
-                <Route exact path="/stockPrice/import" component={ReadAndWriteExcel} />
-                <Route exact path="/stockExchange" component={StockExchangeList} />
-                <Route exact path="/stockExchange/info" component={StockExchange} />
-                <Route exact path="/stockExchange/addEdit" component={AddEditStockExchange} />
-                <Route exact path="/ipo" component={IPOList} />
-                <Route exact path="/ipo/info" component={IPO} />
-                <Route exact path="/ipo/addEdit" component={AddEditIPO} />
-                <Route exact path="/stockPrice/seeData" component={SeeStockPrice} />
-                <Route exact path="/stockPrice/missingRecords" component={MissingRecords} />
-                <Route exact path="/charts" component={Chart} />
-
-
+                <Navbar isAdmin={this.state.isAdmin} currentUser={this.state.currentUser} logout={this.logout} />
+                <PrivateRoute exact path="/company" component={CompanyList} />
+                <PrivateRoute exact roles={[Role.Admin]} path="/company/addEdit" component={AddEditCompany} />
+                <PrivateRoute exact path="/company/info" component={Company} />
+                <PrivateRoute exact roles={[Role.Admin]} path="/sector" component={SectorList} />
+                <PrivateRoute exact roles={[Role.Admin]} path="/sector/info" component={Sector} />
+                <PrivateRoute exact roles={[Role.Admin]} path="/sector/addEdit" component={AddEditSector} />
+                <PrivateRoute exact roles={[Role.Admin]} path="/stockCode" component={StockCodeList} />
+                <PrivateRoute exact roles={[Role.Admin]} path="/stockCode/addEdit" component={AddEditStockCode} />
+                <PrivateRoute exact roles={[Role.Admin]} path="/stockPrice/import" component={ReadAndWriteExcel} />
+                <PrivateRoute exact roles={[Role.Admin]} path="/stockExchange" component={StockExchangeList} />
+                <PrivateRoute exact roles={[Role.Admin]} path="/stockExchange/info" component={StockExchange} />
+                <PrivateRoute exact roles={[Role.Admin]} path="/stockExchange/addEdit" component={AddEditStockExchange} />
+                <PrivateRoute exact path="/ipo" component={IPOList} />
+                <PrivateRoute exact roles={[Role.Admin]} path="/ipo/info" component={IPO} />
+                <PrivateRoute exact roles={[Role.Admin]} path="/ipo/addEdit" component={AddEditIPO} />
+                <PrivateRoute exact roles={[Role.Admin]} path="/stockPrice/seeData" component={SeeStockPrice} />
+                <PrivateRoute exact roles={[Role.Admin]} path="/stockPrice/missingRecords" component={MissingRecords} />
+                <PrivateRoute exact path="/user/info" component={UserInfo} />
+                <PrivateRoute exact path="/charts" component={Chart} />
+                <Route exact path="/login" component={Login} history={this.props.history} />
+                <Route exact path="/signUp" component={SignUp} />
             </div>
         )
     }
 }
+
 
 

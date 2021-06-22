@@ -20,6 +20,7 @@ export default class IPOList extends Component {
 
     }
 
+
     refresh() {
         axios.get(`${window.base_url}/ipoDetail`, {})
             .then(res => {
@@ -46,9 +47,12 @@ export default class IPOList extends Component {
     render() {
         return (
             <div>
-                <div class="col-md-8">
-                    <Link to="/ipo/addEdit"><button class="btn btn-success "><i className="fa fa-plus small" ></i> Add IPO</button></Link>
-                </div>
+
+                {this.props.isAdmin &&
+                    <div class="col-md-8 ml-2">
+                        <Link to="/ipo/addEdit"><button class="btn btn-success "><i className="fa fa-plus small" ></i> Add IPO</button></Link>
+                    </div>
+                }
 
                 <ul class="card container">
                     {!this.state.ipos.length > 0 && <li>No Records Found</li>}
@@ -68,10 +72,13 @@ export default class IPOList extends Component {
                                 <div class="col-md-1">
                                     <Link to={{ pathname: "/ipo/info", state: { ipoid: ipo.id } }}><button class="btn btn-secondary">INFO</button></Link>
                                 </div>
-                                <div class=" col-md-2" >
-                                    <Link to={{ pathname: "ipo/addEdit", state: { ipoid: ipo.id } }}><button class="btn btn-dark">Edit</button></Link>
-                                    <button class="btn btn-danger" onClick={this.remove} ipoid={ipo.id}>Delete</button>
-                                </div>
+
+                                {this.props.isAdmin &&
+                                    <div class=" col-md-2" >
+                                        <Link to={{ pathname: "ipo/addEdit", state: { ipoid: ipo.id } }}><button class="btn btn-dark">Edit</button></Link>
+                                        <button class="btn btn-danger" onClick={this.remove} ipoid={ipo.id}>Delete</button>
+                                    </div>
+                                }
 
                             </div>
                         </li>

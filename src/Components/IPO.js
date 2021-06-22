@@ -52,11 +52,7 @@ export default class IPO extends Component {
 
                     </div>
                 )}
-
-
             </div>
-
-
         )
     }
 }
