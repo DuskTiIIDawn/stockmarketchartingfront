@@ -42,7 +42,7 @@ export default class Company extends Component {
                                 <strong>Price Per Share :</strong> {this.state.company.ipo.pricePerShare}<br></br>
                                 <strong>Total No of Share :</strong> {this.state.company.ipo.totalNumberOfShares}<br></br>
                                 <strong>Open Date Time :</strong> {this.state.company.ipo.openDateTime[2]}/{this.state.company.ipo.openDateTime[1]}/{this.state.company.ipo.openDateTime[0]}
-                                --- {this.state.company.ipo.openDateTime[3]}:{this.state.company.ipo.openDateTime[4]}:{this.state.company.ipo.openDateTime[5]}
+                                --- {this.state.company.ipo.openDateTime[3]}:{this.state.company.ipo.openDateTime[4]}
                             </p>
                             <h6>Listed in following Stock Exchange:</h6>
                             <ul>
