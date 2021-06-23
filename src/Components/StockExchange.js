@@ -44,7 +44,7 @@ export default class CompanyList extends Component {
                                 <strong>Total No of Shares :</strong> {ipo.totalNumberOfShares}<br></br>
 
                                 <strong>Open Date Time :</strong> {ipo.openDateTime[2]}/{ipo.openDateTime[1]}/{ipo.openDateTime[0]}
-                                --- {ipo.openDateTime[3]}:{ipo.openDateTime[4]}:{ipo.openDateTime[5]}
+                                --- {ipo.openDateTime[3]}:{ipo.openDateTime[4]}
                             </p>
                         )}
                     </div>
