@@ -82,9 +82,9 @@ export default class CompanyList extends Component {
       "companyId": e.target.getAttribute("cid")
     })
       .then(res => {
+        this.refreshCompany();
         $('.toast-body').html(res.data);
         $('.toast').toast('show');
-        this.refresh();
       });
   }
 

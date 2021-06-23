@@ -170,9 +170,9 @@ export default class SeeStockPrice extends Component {
                                     {this.state.allStockPrices.result?.map((r, i) => (
 
                                         <tr key={i}>
-                                            <td>{r.currentPrice}</td>
-                                            <td>{r.dateTime[2]}/{r.dateTime[1]}/{r.dateTime[0]}</td>
-                                            <td>{r.dateTime[3]}:{r.dateTime[4]}</td>
+                                            <td>{Math.round(r.currentPrice * 100) / 100}</td>
+                                            <td>{r.dateTime.substr(0, 10)}</td>
+                                            <td>{r.dateTime.substr(11)}</td>
                                         </tr>
                                     ))}
                                 </tbody>
