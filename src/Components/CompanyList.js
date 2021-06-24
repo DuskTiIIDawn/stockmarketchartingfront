@@ -94,17 +94,17 @@ export default class CompanyList extends Component {
   render() {
     return (
       <div>
-        {this.props.isAdmin && (
-          <div class="row">
-            <div class="col-md-8 ml-4">
-              <Link to="/company/addEdit"><button class="btn btn-success "><i className="fa fa-plus small" ></i> Company</button></Link>
-            </div>
-            <form class="form-inline my-2 my-lg-0 col-md-4 ml-auto" action="#">
-              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" onChange={this.handleSearchSubmit} required />
-              <button class="btn btn-outline-success my-2 my-sm-0 " type="submit" disabled>Search</button>
-            </form>
+
+        <div class="row">
+          <div class="col-md-8 ml-4">
+            <Link to="/company/addEdit"><button class="btn btn-success "><i className="fa fa-plus small" ></i> Company</button></Link>
           </div>
-        )}
+          <form class="form-inline my-2 my-lg-0 col-md-4 ml-auto" action="#">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" onChange={this.handleSearchSubmit} required />
+            <button class="btn btn-outline-success my-2 my-sm-0 " type="submit" disabled>Search</button>
+          </form>
+        </div>
+
 
 
 

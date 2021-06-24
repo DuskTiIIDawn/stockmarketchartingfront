@@ -44,7 +44,7 @@ export default class Navbar extends Component {
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><label class="text-white" for="user">Welcome :&nbsp;</label>< input id="user" value={this.props.currentUser?.userName} disabled /></a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <Link to="/user/info" class="dropdown-item">My Info</Link>
+                                        <Link to="/user/info" class="dropdown-item">Change Password</Link>
                                         <div class="dropdown-divider"></div>
                                         <button class="nav-link btn btn-warning" onClick={this.props.logout}>Logout</button>
                                     </div>

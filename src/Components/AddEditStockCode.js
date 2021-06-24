@@ -32,9 +32,7 @@ export default class AddEditStockCode extends Component {
                     allCompanies: responses[0].data,
                     allStockExchanges: responses[1].data
                 })
-            })).catch(errors => {
-                alert("Server Error");
-            })
+            }))
 
         }
 

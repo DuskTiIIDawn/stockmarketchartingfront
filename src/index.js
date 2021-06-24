@@ -20,4 +20,4 @@ import { BrowserRouter } from 'react-router-dom';
 window.base_url = 'https://glacial-ridge-65812.herokuapp.com';
 
 
-ReactDOM.render(<BrowserRouter history={history}><Main /></BrowserRouter>, document.getElementById('root'));
+ReactDOM.render(<BrowserRouter history={history} ><Main /></BrowserRouter>, document.getElementById('root'));

@@ -16,7 +16,7 @@ import IPOList from './IPOList';
 import IPO from './IPO';
 import Login from './Login';
 import SignUp from './SignUp';
-import UserInfo from './UserInfo';
+import ChangePassword from './ChangePassword';
 import MissingRecords from './MissingRecords';
 import SeeStockPrice from './SeeStockPrice';
 import AddEditIPO from './AddEditIPO';
@@ -28,7 +28,9 @@ import { Route } from 'react-router-dom';
 import { authenticationService } from '../_services/authenticationService';
 import { Role } from '../_helpers/role';
 import { PrivateRoute } from './PrivateRouter';
-
+import axios from 'axios';
+import Axios from 'axios';
+import { Alert } from 'bootstrap';
 
 
 
@@ -38,9 +40,42 @@ export default class Main extends Component {
         super(props);
         this.state = {
             currentUser: null,
-            isAdmin: false
+            isAdmin: false,
         };
         this.logout = this.logout.bind(this)
+    }
+    componentWillMount() {
+        let x = 0;
+        Axios.interceptors.request.use(function (config) {
+            x++;
+            document.body.classList.add('loading-indicator');
+            const currentUser = authenticationService.currentUserValue;
+            if (currentUser) {
+                axios.defaults.headers.common['Authorization'] = `Bearer ${currentUser.token}`;
+            } else {
+                delete axios.defaults.headers.common['Authorization'];
+            }
+            return config;
+        }, function (error) {
+            if (--x === 0) {
+                document.body.classList.remove('loading-indicator');
+            }
+            alert("Oops Something went wrong!")
+            return Promise.reject(error);
+        });
+
+        Axios.interceptors.response.use(function (response) {
+            if (--x === 0) {
+                document.body.classList.remove('loading-indicator');
+            }
+            return response;
+        }, function (error) {
+            if (--x === 0) {
+                document.body.classList.remove('loading-indicator');
+            }
+            alert("Oops Something went wrong!")
+            return Promise.reject(error);
+        });
     }
 
 
@@ -51,10 +86,12 @@ export default class Main extends Component {
         }));
     }
 
+
     logout() {
         authenticationService.logout();
 
     }
+
     render() {
         return (
             <div>
@@ -73,11 +110,11 @@ export default class Main extends Component {
                 <PrivateRoute exact roles={[Role.Admin]} path="/stockExchange/info" component={StockExchange} />
                 <PrivateRoute exact roles={[Role.Admin]} path="/stockExchange/addEdit" component={AddEditStockExchange} />
                 <PrivateRoute exact path="/ipo" component={IPOList} />
-                <PrivateRoute exact roles={[Role.Admin]} path="/ipo/info" component={IPO} />
+                <PrivateRoute exact path="/ipo/info" component={IPO} />
                 <PrivateRoute exact roles={[Role.Admin]} path="/ipo/addEdit" component={AddEditIPO} />
                 <PrivateRoute exact roles={[Role.Admin]} path="/stockPrice/seeData" component={SeeStockPrice} />
                 <PrivateRoute exact roles={[Role.Admin]} path="/stockPrice/missingRecords" component={MissingRecords} />
-                <PrivateRoute exact path="/user/info" component={UserInfo} />
+                <PrivateRoute exact path="/user/info" component={ChangePassword} />
                 <PrivateRoute exact path="/charts" component={Chart} />
                 <Route exact path="/login" component={Login} history={this.props.history} />
                 <Route exact path="/signUp" component={SignUp} />
