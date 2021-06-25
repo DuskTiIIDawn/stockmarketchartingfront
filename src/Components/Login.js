@@ -22,7 +22,8 @@ export default class Login extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        authenticationService.login(this.myusername.current.value, this.mypassword.current.value)
+        authenticationService.login(this.myusername.current.value, this.mypassword.current.value, this.props.history);
+
     }
 
     render() {

@@ -171,8 +171,8 @@ export default class SeeStockPrice extends Component {
 
                                         <tr key={i}>
                                             <td>{Math.round(r.currentPrice * 100) / 100}</td>
-                                            <td>{r.dateTime.substr(0, 10)}</td>
-                                            <td>{r.dateTime.substr(11)}</td>
+                                            <td>{r.dateTime?.[2]}/{r.dateTime?.[1]}/{r.dateTime?.[0]}</td>
+                                            <td>{r.dateTime?.[3]}:{r.dateTime?.[4]}</td>
                                         </tr>
                                     ))}
                                 </tbody>

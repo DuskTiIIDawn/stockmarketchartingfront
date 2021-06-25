@@ -12,7 +12,7 @@ export const authenticationService = {
     get currentUserValue() { return currentUserSubject.value }
 };
 
-function login(userName, password) {
+function login(userName, password, history) {
     axios.post(`${window.base_url}/authenticate`, { "userName": userName, "password": password })
         .then(res => {
             // store user details and jwt token in session storage to keep user logged in between page refreshes
@@ -21,10 +21,10 @@ function login(userName, password) {
                 const currentUser = { userName: userName, isAdmin: isAdmin, token: res.data["TOKEN"] }
                 sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
                 currentUserSubject.next(currentUser);
-                window.location.reload();
                 $('.toast-body').html("Logged In SuccessFully");
                 $('.toast').toast('show');
-                this.props.history.push('/');
+                history.push('/');
+
             }
             else {
                 $('.toast-body').html(res.data["ERROR"]);

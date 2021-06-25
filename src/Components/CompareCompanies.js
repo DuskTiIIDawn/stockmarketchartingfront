@@ -28,13 +28,7 @@ const dataSource = {
     yaxis: [
         {
             plot: {
-                connectnulldata: true,
-                style: {
-                    "plot.null": {
-                        "stroke-dasharray": "none",
-                        stroke: "#FF0000"
-                    }
-                }
+
             },
             format: {
                 prefix: "Rs"
@@ -125,7 +119,8 @@ export default class Chart extends Component {
                     const stockExchangeName = this.state.companyStockExchanges.get(parseInt(stockCodeNo))?.stockExchangeName
                     let data = []
                     res.data.result?.map((sp, index) => {
-                        data[index] = [sp.dateTime.replace(/T/, " "), companyName + "- " + stockExchangeName, sp.currentPrice];
+                        let dateTime = `${sp.dateTime?.[0]}-${sp.dateTime?.[1]}-${sp.dateTime?.[2]} ${sp.dateTime?.[3]}:${sp.dateTime?.[4]}`;
+                        data[index] = [dateTime, companyName + "- " + stockExchangeName, sp.currentPrice];
                     });
 
                     if (this.state.timeseriesDs.dataSource.data)

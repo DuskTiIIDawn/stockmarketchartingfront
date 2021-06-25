@@ -28,9 +28,10 @@ import { Route } from 'react-router-dom';
 import { authenticationService } from '../_services/authenticationService';
 import { Role } from '../_helpers/role';
 import { PrivateRoute } from './PrivateRouter';
-import axios from 'axios';
-import Axios from 'axios';
-import { Alert } from 'bootstrap';
+import { request } from '../_services/myAxiosInterceptors.js';
+
+
+
 
 
 
@@ -44,40 +45,6 @@ export default class Main extends Component {
         };
         this.logout = this.logout.bind(this)
     }
-    componentWillMount() {
-        let x = 0;
-        Axios.interceptors.request.use(function (config) {
-            x++;
-            document.body.classList.add('loading-indicator');
-            const currentUser = authenticationService.currentUserValue;
-            if (currentUser) {
-                axios.defaults.headers.common['Authorization'] = `Bearer ${currentUser.token}`;
-            } else {
-                delete axios.defaults.headers.common['Authorization'];
-            }
-            return config;
-        }, function (error) {
-            if (--x === 0) {
-                document.body.classList.remove('loading-indicator');
-            }
-            alert("Oops Something went wrong!")
-            return Promise.reject(error);
-        });
-
-        Axios.interceptors.response.use(function (response) {
-            if (--x === 0) {
-                document.body.classList.remove('loading-indicator');
-            }
-            return response;
-        }, function (error) {
-            if (--x === 0) {
-                document.body.classList.remove('loading-indicator');
-            }
-            alert("Oops Something went wrong!")
-            return Promise.reject(error);
-        });
-    }
-
 
     componentDidMount() {
         authenticationService.currentUser.subscribe(x => this.setState({
