@@ -112,16 +112,24 @@ export default class Chart extends Component {
         axios.post(`${window.base_url}/stockPrice/getByStockCode`, { "stockCodeNo": this.mySearchStockCodeNo.current.value })
             .then(res => {
                 if (!res.data.stockCodeError) {
-                    $('.toast-body').html("Values Are Being Plotted.......");
-                    $('.toast').toast('show');
                     const companyName = this.mySearchCompanyId.current.childNodes[this.mySearchCompanyId.current.selectedIndex].getAttribute("cname")
                     const stockCodeNo = this.mySearchStockCodeNo.current.value
                     const stockExchangeName = this.state.companyStockExchanges.get(parseInt(stockCodeNo))?.stockExchangeName
-                    let data = []
+                    let data = [];
+                    let cnt = 0;
                     res.data.result?.map((sp, index) => {
+                        cnt += 1;
                         let dateTime = `${sp.dateTime?.[0]}-${sp.dateTime?.[1]}-${sp.dateTime?.[2]} ${sp.dateTime?.[3]}:${sp.dateTime?.[4]}`;
                         data[index] = [dateTime, companyName + "- " + stockExchangeName, sp.currentPrice];
                     });
+                    if (cnt === 0) {
+                        $('.toast-body').html("No records Available!");
+                        $('.toast').toast('show');
+                    }
+                    else {
+                        $('.toast-body').html("Records Plotted Succeefully!");
+                        $('.toast').toast('show');
+                    }
 
                     if (this.state.timeseriesDs.dataSource.data)
                         data = [...data, ...this.state.timeseriesDs.dataSource.data?._data]
