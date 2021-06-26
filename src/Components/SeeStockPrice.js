@@ -162,7 +162,7 @@ export default class SeeStockPrice extends Component {
                                 <thead>
                                     <tr>
                                         <th>Current Price</th>
-                                        <th> Date (YYYY-MM-DD)</th>
+                                        <th> Date (DD-MM-YYYY)</th>
                                         <th>Time</th>
                                     </tr>
                                 </thead>
@@ -173,6 +173,7 @@ export default class SeeStockPrice extends Component {
                                             <td>{Math.round(r.currentPrice * 100) / 100}</td>
                                             <td>{r.dateTime?.[2]}/{r.dateTime?.[1]}/{r.dateTime?.[0]}</td>
                                             <td>{r.dateTime?.[3]}:{r.dateTime?.[4]}</td>
+
                                         </tr>
                                     ))}
                                 </tbody>

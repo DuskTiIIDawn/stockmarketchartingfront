@@ -16,26 +16,14 @@ ReactFC.fcRoot(FusionCharts, TimeSeries, FusionTheme);
 
 
 const dataSource = {
-
-
     caption: {
         text: "Stock Price Analysis"
     },
     subcaption: {
         text: "Stock Prices Over different time"
     },
-    series: "Type",
-    yaxis: [
-        {
-            plot: {
+    series: "Type"
 
-            },
-            format: {
-                prefix: "Rs"
-            },
-            title: "Stock Price"
-        }
-    ]
 
 };
 
@@ -72,6 +60,9 @@ export default class Chart extends Component {
         this.mySearchStockCodeNo = React.createRef();
         this.enableStockExchange = this.enableStockExchange.bind(this);
         this.getChartData = this.getChartData.bind(this);
+        this.toggleToColumnChart = this.toggleToColumnChart.bind(this);
+        this.toggleToAreaChart = this.toggleToAreaChart.bind(this);
+        this.toggleToLineChart = this.toggleToLineChart.bind(this);
     }
     componentDidMount() {
         axios.post(`${window.base_url}/stockCode/getAll`, {})
@@ -116,40 +107,63 @@ export default class Chart extends Component {
                     const stockCodeNo = this.mySearchStockCodeNo.current.value
                     const stockExchangeName = this.state.companyStockExchanges.get(parseInt(stockCodeNo))?.stockExchangeName
                     let data = [];
-                    let cnt = 0;
                     res.data.result?.map((sp, index) => {
-                        cnt += 1;
                         let dateTime = `${sp.dateTime?.[0]}-${sp.dateTime?.[1]}-${sp.dateTime?.[2]} ${sp.dateTime?.[3]}:${sp.dateTime?.[4]}`;
                         data[index] = [dateTime, companyName + "- " + stockExchangeName, sp.currentPrice];
                     });
-                    if (cnt === 0) {
+                    if (data.length === 0) {
                         $('.toast-body').html("No records Available!");
                         $('.toast').toast('show');
                     }
                     else {
+                        if (this.state.timeseriesDs.dataSource.data)
+                            data = [...data, ...this.state.timeseriesDs.dataSource.data?._data]
+                        const fusionTable = new FusionCharts.DataStore().createDataTable(
+                            data,
+                            schema
+                        );
+                        const timeseriesDs = Object.assign({}, this.state.timeseriesDs);
+                        timeseriesDs.dataSource.data = fusionTable;
+                        timeseriesDs.dataSource.yaxis = {
+                            plot: {
+                                value: "Stock Price Value",
+                                type: "line"
+                            },
+                            format: {
+                                prefix: "Rs"
+                            },
+                            title: "Stock Price"
+                        }
+                        this.setState({
+                            timeseriesDs: timeseriesDs,
+                            plottedStockCodes: [...this.state.plottedStockCodes, stockCodeNo]
+
+                        });
                         $('.toast-body').html("Records Plotted Succeefully!");
                         $('.toast').toast('show');
                     }
 
-                    if (this.state.timeseriesDs.dataSource.data)
-                        data = [...data, ...this.state.timeseriesDs.dataSource.data?._data]
-
-
-                    const fusionTable = new FusionCharts.DataStore().createDataTable(
-                        data,
-                        schema
-                    );
-                    const timeseriesDs = Object.assign({}, this.state.timeseriesDs);
-                    timeseriesDs.dataSource.data = fusionTable;
-                    this.setState({
-                        timeseriesDs: timeseriesDs,
-                        plottedStockCodes: [...this.state.plottedStockCodes, stockCodeNo]
-
-                    });
 
                 }
 
             });
+    }
+
+
+    toggleToColumnChart() {
+        const timeseriesDs = this.state.timeseriesDs;
+        timeseriesDs.dataSource.yaxis.plot = { type: "column", value: "Stock Price Value" }
+        this.setState({ timeseriesDs: timeseriesDs });
+    }
+    toggleToAreaChart() {
+        const timeseriesDs = this.state.timeseriesDs;
+        timeseriesDs.dataSource.yaxis.plot = { type: "area", value: "Stock Price Value" }
+        this.setState({ timeseriesDs: timeseriesDs });
+    }
+    toggleToLineChart() {
+        const timeseriesDs = this.state.timeseriesDs;
+        timeseriesDs.dataSource.yaxis.plot = { type: "line", value: "Stock Price Value" }
+        this.setState({ timeseriesDs: timeseriesDs });
     }
 
     render() {
@@ -191,6 +205,11 @@ export default class Chart extends Component {
 
                             </form>
                         </div>
+                    </div>
+                    <div class="text-center">
+                        <button onClick={this.toggleToColumnChart} class="btn btn-dark" disabled={!this.state.timeseriesDs.dataSource.data}>Column Chart</button>&nbsp;
+                        <button onClick={this.toggleToAreaChart} class="btn btn-dark" disabled={!this.state.timeseriesDs.dataSource.data}>Area Chart</button>&nbsp;
+                        <button onClick={this.toggleToLineChart} class="btn btn-dark" disabled={!this.state.timeseriesDs.dataSource.data}>Line Chart</button>
                     </div>
                 </div>
                 <div class="text-center">
