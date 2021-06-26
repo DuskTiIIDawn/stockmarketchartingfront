@@ -18,7 +18,7 @@ const dataSource = {
         text: "Stock Price Analysis"
     },
     subcaption: {
-        text: "Stock Prices Over different time"
+        text: "Stock Prices Over different date time"
     },
     series: "Type"
 };
