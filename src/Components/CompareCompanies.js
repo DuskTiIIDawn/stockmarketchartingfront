@@ -124,6 +124,7 @@ export default class Chart extends Component {
                     const stockExchangeName = this.state.companyStockExchanges.get(parseInt(stockCodeNo))?.stockExchangeName
                     let data = [];
                     res.data.result?.map((sp, index) => {
+                        console.log(sp.dateTime)
                         let dateTime = `${sp.dateTime?.[0]}-${sp.dateTime?.[1]}-${sp.dateTime?.[2]} ${sp.dateTime?.[3]}:${sp.dateTime?.[4]}`;
                         data[index] = [dateTime, companyName + "- " + stockExchangeName, sp.currentPrice];
                     });
@@ -132,8 +133,9 @@ export default class Chart extends Component {
                         $('.toast').toast('show');
                     }
                     else {
-                        if (this.state.timeseriesDs.dataSource.data)
+                        if (this.state.timeseriesDs.dataSource.data) {
                             data = [...this.state.timeseriesDs.dataSource.data?._data, ...data]
+                        }
                         const fusionTable = new FusionCharts.DataStore().createDataTable(
                             data,
                             schema
@@ -180,63 +182,64 @@ export default class Chart extends Component {
         this.setState({ timeseriesDs: timeseriesDs });
     }
 
-
     render() {
         return (
-            <div class="row">
-                <div class=" col col-md-3  bg-light text-dark" >
-                    <div class="container-fluid">
-                        <div class="row justify-content-center align-items-center mt-2">
-                            <h2>Stock Price Charts</h2>
-                        </div>
-                        <hr />
-                        <div class="row justify-content-center align-items-center">
-                            <div class="col col-sm-11 col-md-11 col-lg-11 col-xl-11 ">
-                                <form action="#" onSubmit={this.getChartData}>
-                                    <div class="form-group">
-                                        <select class="custom-select mr-sm-3 form-control my-1 font-weight-bold" ref={this.mySearchCompanyId} onChange={this.enableStockExchange} required>
-                                            <option value="" class="font-weight-bold">All Companies</option>
-                                            {this.state.uniqueCompanies.map((uc, index) =>
-                                                <option value={uc.id} key={index} cname={uc.companyName}>{uc.companyName}</option>
-                                            )}
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <select class="custom-select mr-sm-3 form-control my-1 font-weight-bold" ref={this.mySearchStockCodeNo} required>
-                                            <option value="" class="font-weight-bold">Listed In Stock Exchange</option>
-                                            {this.state.companyStockExchanges && [...this.state.companyStockExchanges.keys()].map((k, index) =>
-                                                <option value={k} key={index}>{this.state.companyStockExchanges.get(k).stockExchangeName}</option>
-                                            )}
-                                        </select>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="datetimepicker1" class="col-sm-2 col-form-label">From</label>
-                                        <div class="col-sm-10">
-                                            <input type="datetime-local" class="form-control datetime" id="datetimepicker1" name="startDate" onChange={this.enableEndDate} ref={this.myStartDate} required />
+            <div class="overflow-hidden ">
+                <div class="row ">
+                    <div class=" col col-md-3  bg-light text-dark" >
+                        <div class="container-fluid">
+                            <div class="row justify-content-center align-items-center mt-2">
+                                <h2>Stock Price Charts</h2>
+                            </div>
+                            <hr />
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col col-sm-11 col-md-11 col-lg-11 col-xl-11 ">
+                                    <form action="#" onSubmit={this.getChartData}>
+                                        <div class="form-group">
+                                            <select class="custom-select mr-sm-3 form-control my-1 font-weight-bold" ref={this.mySearchCompanyId} onChange={this.enableStockExchange} required>
+                                                <option value="" class="font-weight-bold">All Companies</option>
+                                                {this.state.uniqueCompanies.map((uc, index) =>
+                                                    <option value={uc.id} key={index} cname={uc.companyName}>{uc.companyName}</option>
+                                                )}
+                                            </select>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="datetimepicker2" class="col-sm-2 col-form-label">To</label>
-                                        <div class="col-sm-10">
-                                            <input type="datetime-local" class="form-control datetime" id="datetimepicker2" name="endDate" ref={this.myEndDate} required />
+                                        <div class="form-group">
+                                            <select class="custom-select mr-sm-3 form-control my-1 font-weight-bold" ref={this.mySearchStockCodeNo} required>
+                                                <option value="" class="font-weight-bold">Listed In Stock Exchange</option>
+                                                {this.state.companyStockExchanges && [...this.state.companyStockExchanges.keys()].map((k, index) =>
+                                                    <option value={k} key={index}>{this.state.companyStockExchanges.get(k).stockExchangeName}</option>
+                                                )}
+                                            </select>
                                         </div>
+                                        <div class="form-group row">
+                                            <label for="datetimepicker1" class="col-sm-2 col-form-label">From</label>
+                                            <div class="col-sm-10">
+                                                <input type="datetime-local" class="form-control datetime" id="datetimepicker1" name="startDate" onChange={this.enableEndDate} ref={this.myStartDate} required />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="datetimepicker2" class="col-sm-2 col-form-label">To</label>
+                                            <div class="col-sm-10">
+                                                <input type="datetime-local" class="form-control datetime" id="datetimepicker2" name="endDate" ref={this.myEndDate} required />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-5">
+                                            {this.state.timeseriesDs.dataSource.data && <div class="col"><button class="col-6 btn btn-primary btn-sm float-right" type="submit">ADD MORE</button></div>}
+                                            {!this.state.timeseriesDs.dataSource.data && <div class="col"><button class="col-6 btn btn-primary btn-sm float-right" type="submit">PLOT</button></div>}
+                                        </div>
+                                    </form>
+                                    <div class="text-center">
+                                        <button onClick={this.toggleToColumnChart} class="btn btn-dark mx-1 my-1" disabled={!this.state.timeseriesDs.dataSource.data}>Column Chart</button>
+                                        <button onClick={this.toggleToAreaChart} class="btn btn-dark mx-1 my-1" disabled={!this.state.timeseriesDs.dataSource.data}>Area Chart</button>
+                                        <button onClick={this.toggleToLineChart} class="btn btn-dark my-1" disabled={!this.state.timeseriesDs.dataSource.data}>Line Chart</button>
                                     </div>
-                                    <div class="form-group row mb-5">
-                                        {this.state.timeseriesDs.dataSource.data && <div class="col"><button class="col-6 btn btn-primary btn-sm float-right" type="submit">ADD MORE</button></div>}
-                                        {!this.state.timeseriesDs.dataSource.data && <div class="col"><button class="col-6 btn btn-primary btn-sm float-right" type="submit">PLOT</button></div>}
-                                    </div>
-                                </form>
-                                <div class="text-center">
-                                    <button onClick={this.toggleToColumnChart} class="btn btn-dark mx-1 my-1" disabled={!this.state.timeseriesDs.dataSource.data}>Column Chart</button>
-                                    <button onClick={this.toggleToAreaChart} class="btn btn-dark mx-1 my-1" disabled={!this.state.timeseriesDs.dataSource.data}>Area Chart</button>
-                                    <button onClick={this.toggleToLineChart} class="btn btn-dark my-1" disabled={!this.state.timeseriesDs.dataSource.data}>Line Chart</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class=" col col-md-9">
-                    < ReactFC {...this.state.timeseriesDs} />
+                    <div class=" col col-md-9">
+                        < ReactFC {...this.state.timeseriesDs} />
+                    </div>
                 </div>
             </div>);
     }
