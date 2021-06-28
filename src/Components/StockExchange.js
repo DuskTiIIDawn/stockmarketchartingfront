@@ -69,7 +69,7 @@ export default class CompanyList extends Component {
                             <ul>
                                 {this.state.stockExchange.stockCodes.map((sc, index) =>
                                     <li class="card text-left " key={index}>
-                                        {index + 1} &nbsp; ------{sc.stockCode}-------------{sc.company.companyName}
+                                        {index + 1} &nbsp; ------{sc.stockCode}---------------{sc.company.companyName}
                                     </li>
                                 )}
                             </ul>
