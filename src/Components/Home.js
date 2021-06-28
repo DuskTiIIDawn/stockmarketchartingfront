@@ -13,7 +13,7 @@ export default class Home extends Component {
     render() {
         return (
             <div class="card container text-center">
-                <span class="my">Stock Market Charting App</span>
+                <span class="my">Stock Market Charting</span>
             </div>
         )
     }
