@@ -13,7 +13,7 @@ export default class AddEditStockCode extends Component {
     constructor() {
         super();
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.getAvailStockExchages = this.getAvailStockExchages.bind(this);
+        this.getAvailStockExchanges = this.getAvailStockExchanges.bind(this);
         this.mySearchCompanyId = React.createRef();
         this.mySearchStockExchangeId = React.createRef();
     }
@@ -69,7 +69,7 @@ export default class AddEditStockCode extends Component {
         });
     }
 
-    getAvailStockExchages(e) {
+    getAvailStockExchanges(e) {
         e.preventDefault();
         this.mySearchStockExchangeId.current.disabled = false
         const companyId = this.mySearchCompanyId.current.value
@@ -97,7 +97,7 @@ export default class AddEditStockCode extends Component {
                     <div class="form align-items-center">
                         <label for="select1" class="col-sm-2 col-form-label">Select Company :</label>
                         <div class="col-sm-4 my-1">
-                            <select class="custom-select mr-sm-3 form-control my-1 font-weight-bold" id="select1" ref={this.mySearchCompanyId} onChange={this.getAvailStockExchages} required>
+                            <select class="custom-select mr-sm-3 form-control my-1 font-weight-bold" id="select1" ref={this.mySearchCompanyId} onChange={this.getAvailStockExchanges} required>
                                 {this.props.location.state && (<option value={this.props.location.state.cid} class="font-weight-bold" selected>{this.props.location.state.cname}</option>)}
                                 <option value="" class="font-weight-bold">Company List</option>
                                 {!this.props.location.state && this.state.allCompanies.map((c, index) =>

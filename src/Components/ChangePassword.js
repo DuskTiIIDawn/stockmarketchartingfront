@@ -56,7 +56,7 @@ export default class ChangePassword extends React.Component {
     render() {
         return (
 
-            <div class="row">
+            <div class="row w-100">
                 <div class=" card container col-md-4 shadow p-3 mb-5 bg-white rounded">
 
                     <h2>Hii, {this.state.user?.userName} {this.state.user?.isAdmin === true && "(ADMIN)"} </h2>

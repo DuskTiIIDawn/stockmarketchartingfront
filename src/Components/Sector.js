@@ -52,12 +52,8 @@ export default class Sector extends Component {
                                 {this.state.sectorCompanies.length > 0 && <h6>Companies in this Sector:</h6>}
                                 <ul>
                                     {this.state.sectorCompanies.map((scom, index) =>
-                                        <li class="card " key={index}>
-                                            <div class="row">
-                                                <div class="col-md-5">
-                                                    {index + 1} &nbsp; {scom.companyName}
-                                                </div>
-                                            </div>
+                                        <li class="card text-left" key={index}>
+                                            {index + 1} &nbsp; {scom.companyName}
                                         </li>
                                     )}
                                 </ul>

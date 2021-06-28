@@ -21,11 +21,10 @@ export default class CompanyList extends Component {
 
 
   componentDidMount() {
-
     if (this.props.isAdmin) {
       axios.get(`${window.base_url}/sector`, {}).then((res) => {
         this.setState({ sectors: res.data })
-      })
+      });
     }
     this.refreshCompany();
   }
@@ -46,11 +45,9 @@ export default class CompanyList extends Component {
         this.refreshCompany();
         $('.toast-body').html(res.data);
         $('.toast').toast('show');
-
       });
 
   }
-
 
   handleSectorRemove(e) {
     axios.post(`${window.base_url}/company/addOrRemoveSector`, {
@@ -93,9 +90,9 @@ export default class CompanyList extends Component {
 
   render() {
     return (
-      <div>
+      <div class="w-100">
 
-        <div class="row">
+        <div class="row w-100">
           <div class="col-md-8 ml-4">
             <Link to="/company/addEdit"><button class="btn btn-success "><i className="fa fa-plus small" ></i> Company</button></Link>
           </div>
@@ -104,78 +101,69 @@ export default class CompanyList extends Component {
             <button class="btn btn-outline-success my-2 my-sm-0 " type="submit" disabled>Search</button>
           </form>
         </div>
-
-
-
-
-        <ul class="card container">
-          {!this.state.companies.length && <li>No Records Found</li>}
-          {this.state.companies.map((company, index) =>
-            <li class="card " key={index}>
-              <div class="row">
-                <div class="col-md-3">
-                  {index + 1}&nbsp;  {company.companyName}
-                </div >
-
-                <div class="col-md-5">
-                  {!company.sector && this.props.isAdmin && (
-                    <form onSubmit={this.handleSectorAdd} action="#" method="post" cid={company.id}>
-                      <div class="form-group row">
-
-                        <label for={company.id} class="col-form-label">Sector:</label>
-                        <div class="col-sm-6">
-                          <select class="custom-select mr-sm-2" id={company.id} name="sectorId" required>
-                            <option value="">Select....</option>
-                            {this.state.sectors.map((sector, index) =>
-                              <option value={sector.id} key={index}>{sector.sectorName}</option>
-                            )}
-                          </select>
-                        </div>
-                        <div class="col-auto">
+        <div class="text-center mb-5 "><h3>Manage Companies</h3></div>
+        {!this.state.companies.length > 0 && <li>No Records Found</li>}
+        {this.state.companies.length > 0 &&
+          <div class="card container">
+            <table class="table table-sm ">
+              <thead>
+                <tr>
+                  <th>SNo.</th>
+                  <th>Company Name</th>
+                  <th>Sector</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.state.companies.map((company, index) =>
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{company.companyName}</td>
+                    <td>{!company.sector && this.props.isAdmin && (
+                      <form onSubmit={this.handleSectorAdd} action="#" method="post" cid={company.id}>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <select class="custom-select mr-sm-2" id={company.id} name="sectorId" required>
+                              <option value="">Select....</option>
+                              {this.state.sectors.map((sector, index) =>
+                                <option value={sector.id} key={index}>{sector.sectorName}</option>
+                              )}
+                            </select>
+                          </div>
                           <button type="submit" class="btn btn-primary" ><i className="fa fa-plus small" ></i></button>
                         </div>
+                      </form>)}
+
+                      {company.sector && (
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <input type="text" class="form-control" id={company.id} name="sectorName" value={company.sector.sectorName} disabled />
+                          </div>
+                          {this.props.isAdmin &&
+                            <button class="btn btn-danger col-auto" onClick={this.handleSectorRemove} cid={company.id}><i className="fa fa-minus small" cid={company.id}></i></button>
+                          }
+                        </div>
+                      )}
+
+                    </td>
+
+                    <td>
+                      <div class="row">
+                        <Link to={{ pathname: "/company/info", state: { cid: company.id } }}><button class="btn btn-secondary">INFO</button></Link>
+                        {this.props.isAdmin && (<div>
+                          <Link to={{ pathname: "/company/addEdit", state: { cid: company.id } }}><button class="btn btn-dark mx-1">Edit</button></Link>
+                          <button class="btn btn-danger mx-1" onClick={this.remove} cid={company.id}>Delete</button>
+                        </div>)
+                        }
                       </div>
-                    </form>)}
-                  {company.sector && (
-                    <div class="form-group row">
-                      <label for={company.id} class=" col-form-label">Sector:</label>
-                      <div class="col-sm-6">
-                        <input type="text" class="form-control" id={company.id} name="sectorName" value={company.sector.sectorName} disabled />
-                      </div>
-                      {this.props.isAdmin &&
-                        <button class="btn btn-danger col-auto" onClick={this.handleSectorRemove} cid={company.id}><i className="fa fa-minus small" cid={company.id}></i></button>
-                      }
-                    </div>
-                  )}
+                    </td>
 
-
-                </div>
-
-
-
-
-
-                <div class="row ">
-                  <div class="col-md-4 col-sm-4">
-                    <Link to={{ pathname: "/company/info", state: { cid: company.id } }}><button class="btn btn-secondary">INFO</button></Link>
-                  </div>
-                  {this.props.isAdmin && (<div class="row">
-                    < div class="col-md-4 col-sm-4">
-                      <Link to={{ pathname: "/company/addEdit", state: { cid: company.id } }}><button class="btn btn-dark">Edit</button></Link>
-                    </div>
-
-                    <div class=" col-md-4 ">
-                      <button class="btn btn-danger" onClick={this.remove} cid={company.id}>Delete</button>
-                    </div>
-                  </div>)
-                  }
-                </div>
-              </div>
-            </li>
-          )}
-        </ul>
-
-
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        }
 
       </div >
     )

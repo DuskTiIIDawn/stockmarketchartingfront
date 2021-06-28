@@ -1,6 +1,7 @@
 import Title from './Title';
 import CompanyList from './CompanyList';
 import Navbar from './Navbar';
+import Home from './Home';
 import AddEditCompany from './AddEditCompany';
 import Company from './Company';
 import Chart from './CompareCompanies';
@@ -64,6 +65,7 @@ export default class Main extends Component {
             <div>
                 <Title />
                 <Navbar isAdmin={this.state.isAdmin} currentUser={this.state.currentUser} logout={this.logout} />
+                <Route exact path="/" component={Home} />
                 <PrivateRoute exact path="/company" component={CompanyList} />
                 <PrivateRoute exact roles={[Role.Admin]} path="/company/addEdit" component={AddEditCompany} />
                 <PrivateRoute exact path="/company/info" component={Company} />

@@ -44,15 +44,13 @@ export default class Company extends Component {
                                 <strong>Open Date Time :</strong> {this.state.company.ipo.openDateTime[2]}/{this.state.company.ipo.openDateTime[1]}/{this.state.company.ipo.openDateTime[0]}
                                 --- {this.state.company.ipo.openDateTime[3]}:{this.state.company.ipo.openDateTime[4]}
                             </p>
-                            <h6>Listed in following Stock Exchange:</h6>
+
+                            {this.state.company.ipo.stockExchanges?.length > 0 && <h6>Listed in following Stock Exchange:</h6>}
+                            {!this.state.company.ipo.stockExchanges?.length > 0 && <h6>(NOT listed in any stock Exchange)</h6>}
                             <ul>
                                 {this.state.company.ipo.stockExchanges.map((se, index) =>
-                                    <li class="card " key={index}>
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                {index + 1} &nbsp; {se.stockExchangeName}
-                                            </div>
-                                        </div>
+                                    <li class="card text-left" key={index}>
+                                        {index + 1} &nbsp; {se.stockExchangeName}
                                     </li>
                                 )}
                             </ul>
@@ -66,15 +64,10 @@ export default class Company extends Component {
                     <div class="card text-center">
                         <div class="card-body">
                             <h5 class="card-title">Stock Codes In different Stock Exchanges</h5>
-
                             <ul>
                                 {this.state.company.stockCodes.map((sc, index) =>
-                                    <li class="card " key={index}>
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                {index + 1} &nbsp; {sc.stockCode} ------------------{sc.stockExchange.stockExchangeName}
-                                            </div>
-                                        </div>
+                                    <li class="card text-left" key={index}>
+                                        {index + 1} &nbsp; {sc.stockCode} ------------------{sc.stockExchange.stockExchangeName}
                                     </li>
                                 )}
                             </ul>

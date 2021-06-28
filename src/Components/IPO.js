@@ -20,7 +20,6 @@ export default class IPO extends Component {
         return (
 
             <div class="card container">
-
                 <div class="card-body">
                     <h4 class="card-title"><strong>By :</strong> &nbsp;{this.state.ipo?.company.companyName}</h4>
                 </div>
@@ -38,12 +37,8 @@ export default class IPO extends Component {
                             <h6>Listed in following Stock Exchange:</h6>
                             <ul>
                                 {this.state.ipo?.stockExchanges.map((se, index) =>
-                                    <li class="card " key={index}>
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                {index + 1} &nbsp; {se.stockExchangeName}
-                                            </div>
-                                        </div>
+                                    <li class="card text-left " key={index}>
+                                        {index + 1} &nbsp; {se.stockExchangeName}
                                     </li>
                                 )}
                             </ul>

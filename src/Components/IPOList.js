@@ -47,44 +47,47 @@ export default class IPOList extends Component {
     render() {
         return (
             <div>
-
                 {this.props.isAdmin &&
                     <div class="col-md-8 ml-2">
                         <Link to="/ipo/addEdit"><button class="btn btn-success "><i className="fa fa-plus small" ></i> Add IPO</button></Link>
                     </div>
                 }
-
-                <ul class="card container">
-                    {!this.state.ipos.length > 0 && <li>No Records Found</li>}
-                    {this.state.ipos.map((ipo, index) =>
-                        <li class="card " key={index}>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    {index + 1}&nbsp; <strong>BY:</strong> {ipo.company.companyName}
-                                </div>
-                                <div class="col-md-2">
-                                    &nbsp;  {ipo.pricePerShare}<strong>/Share</strong>
-                                </div>
-                                <div class="col-md-4">
-                                    <strong>Open Date:</strong> {ipo.openDateTime[2]}/{ipo.openDateTime[1]}/{ipo.openDateTime[0]}
-                                    --- {ipo.openDateTime[3]}:{ipo.openDateTime[4]}
-                                </div>
-                                <div class="col-md-1">
-                                    <Link to={{ pathname: "/ipo/info", state: { ipoid: ipo.id } }}><button class="btn btn-secondary">INFO</button></Link>
-                                </div>
-
-                                {this.props.isAdmin &&
-                                    <div class=" col-md-2" >
-                                        <Link to={{ pathname: "ipo/addEdit", state: { ipoid: ipo.id } }}><button class="btn btn-dark">Edit</button></Link>
-                                        <button class="btn btn-danger" onClick={this.remove} ipoid={ipo.id}>Delete</button>
-                                    </div>
-                                }
-
-                            </div>
-                        </li>
-                    )}
-                </ul>
-
+                <div class="text-center mb-5"><h3>IPO List</h3></div>
+                {!this.state.ipos.length > 0 && <li>No Records Found</li>}
+                {this.state.ipos.length > 0 &&
+                    <div class="card container">
+                        <table class="table table-sm ">
+                            <thead>
+                                <tr>
+                                    <th>SNo.</th>
+                                    <th>By</th>
+                                    <th>Price Per Share(Rs)</th>
+                                    <th>Open Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.ipos.map((ipo, index) =>
+                                    <tr key={index}>
+                                        <td>{index + 1}</td>
+                                        <td>{ipo.company.companyName}</td>
+                                        <td> {ipo.pricePerShare}</td>
+                                        <td>{ipo.openDateTime[2]}/{ipo.openDateTime[1]}/{ipo.openDateTime[0]}
+                                            --- {ipo.openDateTime[3]}:{ipo.openDateTime[4]}</td>
+                                        <td class="row">
+                                            <Link to={{ pathname: "/ipo/info", state: { ipoid: ipo.id } }}><button class="btn btn-secondary">INFO</button></Link>
+                                            {this.props.isAdmin && <div>
+                                                <Link to={{ pathname: "ipo/addEdit", state: { ipoid: ipo.id, cid: ipo.company.id } }} ><button class="btn btn-dark mx-1">Edit</button></Link>
+                                                <button class="btn btn-danger mx-1" onClick={this.remove} ipoid={ipo.id}>Delete</button>
+                                            </div>
+                                            }
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                }
             </div >
         )
     }

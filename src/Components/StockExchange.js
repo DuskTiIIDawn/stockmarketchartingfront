@@ -32,39 +32,44 @@ export default class CompanyList extends Component {
 
                 </ul>
 
-
-                <div class="card text-center">
-
-                    <div class="card-body">
-                        <h5 class="card-title">IPO Detail</h5>
-                        {this.state.stockExchange.ipos && this.state.stockExchange.ipos.map((ipo, index) =>
-                            <p class="card-text" key={index}>
-                                <strong>By Company :</strong> {ipo.company.companyName}<br></br>
-                                <strong>Price Per Share :</strong> {ipo.pricePerShare}<br></br>
-                                <strong>Total No of Shares :</strong> {ipo.totalNumberOfShares}<br></br>
-
-                                <strong>Open Date Time :</strong> {ipo.openDateTime[2]}/{ipo.openDateTime[1]}/{ipo.openDateTime[0]}
-                                --- {ipo.openDateTime[3]}:{ipo.openDateTime[4]}
-                            </p>
-                        )}
+                {this.state.stockExchange.ipos &&
+                    <div class="card container mt-2">
+                        <h5 class="text-center">IPO list</h5>
+                        <table class="table  table-sm">
+                            <thead>
+                                <tr>
+                                    <th>SNo.</th>
+                                    <th>By Company </th>
+                                    <th>Price Per Share :</th>
+                                    <th>Total No of Shares :</th>
+                                    <th>Open Date Time :</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.stockExchange.ipos.map((ipo, index) =>
+                                    <tr key={index}>
+                                        <td>{index + 1}</td>
+                                        <td>{ipo.company.companyName}</td>
+                                        <td>{ipo.pricePerShare}</td>
+                                        <td>{ipo.totalNumberOfShares}</td>
+                                        <td>{ipo.openDateTime[2]}/{ipo.openDateTime[1]}/{ipo.openDateTime[0]}
+                                            ---{ipo.openDateTime[3]}:{ipo.openDateTime[4]}</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
                     </div>
-
-                </div>
+                }
 
 
                 {this.state.stockExchange.stockCodes?.length > 0 && (
-                    <div class="card text-center">
+                    <div class="card text-center mt-2">
                         <div class="card-body">
                             <h5 class="card-title">Stock Codes For different Companies in this Stock Exchange</h5>
-
                             <ul>
                                 {this.state.stockExchange.stockCodes.map((sc, index) =>
-                                    <li class="card " key={index}>
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                {index + 1} &nbsp; ------{sc.stockCode}--------------{sc.company.companyName}
-                                            </div>
-                                        </div>
+                                    <li class="card text-left " key={index}>
+                                        {index + 1} &nbsp; ------{sc.stockCode}--------------{sc.company.companyName}
                                     </li>
                                 )}
                             </ul>

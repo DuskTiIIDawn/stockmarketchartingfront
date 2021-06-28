@@ -44,10 +44,11 @@ export default class SignUp extends React.Component {
     render() {
         return (
 
-            <div class="row">
-                <div class=" card container col-md-4 shadow p-3 mb-5 bg-white rounded">
+            <div class="row w-100">
+                <div class=" card container col-md-4 shadow p-3  bg-white rounded mx-auto">
                     <div class="text-center">
                         <img src="/favicon.ico" id="icon" alt="User Icon" />
+                        <h2>SignUp</h2>
                     </div>
                     <form onSubmit={this.handleSubmit}>
                         <div class="form-group">

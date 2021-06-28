@@ -17,7 +17,7 @@ export default class Navbar extends Component {
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active"><a class="nav-link" >Home <span class="sr-only">(current)</span></a></li>
+                            <li class="nav-item active"><Link to="/" class="nav-link" >Home</Link></li>
                             {this.props.currentUser && <li class="nav-item"><Link class="nav-link" to="/company" >{this.props.isAdmin && 'Manage'} Company</Link> </li>}
                             {this.props.currentUser && <li class="nav-item"><Link class="nav-link" to="/charts" >Compare Companies</Link></li>}
 
@@ -39,8 +39,9 @@ export default class Navbar extends Component {
                             {!this.props.currentUser && <li class="nav-item"><Link to="/login" class="nav-link ">Login</Link></li>}
 
                         </ul>
-                        <ul class="navbar-nav ml-auto">
-                            {this.props.currentUser &&
+
+                        {this.props.currentUser &&
+                            <ul class="navbar-nav ml-auto">
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><label class="text-white" for="user">Welcome :&nbsp;</label>< input id="user" value={this.props.currentUser?.userName} disabled /></a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -49,8 +50,9 @@ export default class Navbar extends Component {
                                         <button class="nav-link btn btn-warning" onClick={this.props.logout}>Logout</button>
                                     </div>
                                 </li>
-                            }
-                        </ul>
+                            </ul>
+                        }
+
                     </div>
                 </nav>
             </div >

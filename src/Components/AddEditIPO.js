@@ -7,20 +7,23 @@ import axios from 'axios';
 export default class AddEditIPO extends Component {
     state = {
         companyWithoutIpo: [],
-        stockExchanges: [],
+        linkedStockCodes: [],
         ipo: {},
     }
     constructor() {
         super();
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.getAvailStockExchanges = this.getAvailStockExchanges.bind(this);
+        this.mySearchCompanyId = React.createRef();
+        this.mySearchStockExchangeId = React.createRef();
     }
+
 
     componentDidMount() {
 
-
-        const r3 = axios.get(`${window.base_url}/stockExchange`, {});
-
+        /*edit  IPO */
         if (this.props.location.state) {
+            const r3 = axios.post(`${window.base_url}/stockCode/getAll`, { "companyId": this.props.location.state.cid });
             const r1 = axios.post(`${window.base_url}/ipoDetail/info`, { "ipoDetailId": this.props.location.state.ipoid });
             axios.all([r1, r3])
                 .then(axios.spread((res1, res3) => {
@@ -31,25 +34,31 @@ export default class AddEditIPO extends Component {
                     res1.data.openDateTime[4] = ('0' + res1.data.openDateTime[4]).slice(-2)
                     res1.data.openDateTime = `${res1.data.openDateTime[0]}-${res1.data.openDateTime[1]}-${res1.data.openDateTime[2]}T${res1.data.openDateTime[3]}:${res1.data.openDateTime[4]}`
                     const selectedStockExchageIds = Array.from(res1.data.stockExchanges, stockExchange => stockExchange.id)
-                    this.setState({ ipo: res1.data, stockExchanges: res3.data });
+                    this.setState({ ipo: res1.data, linkedStockCodes: res3.data });
                     $("#select2").val(selectedStockExchageIds);
                     $("#select2").selectpicker('refresh');
                 }))
-                .catch(error => alert("Ooops Something Went Wrong"));
+
         }
 
         else {
-            const r2 = axios.get(`${window.base_url}/company/withoutIpo`, {});
-            axios.all([r2, r3])
-                .then(axios.spread((res2, res3) => {
-                    this.setState({ companyWithoutIpo: res2.data, stockExchanges: res3.data });
-                    $('#select1').selectpicker('render');
-                    $("#select2").selectpicker('render');
-                }))
-                .catch(error => alert("Ooops Something Went Wrong"));
+            this.mySearchStockExchangeId.current.disabled = true;
+            axios.get(`${window.base_url}/company/withoutIpoAndWithStockCodes`, {}).then(res => {
+                this.setState({ companyWithoutIpo: res.data });
+                $('#select1').selectpicker('render');
+            });
         }
+    }
 
-
+    getAvailStockExchanges(e) {
+        e.preventDefault();
+        this.mySearchStockExchangeId.current.disabled = false;
+        const companyId = this.mySearchCompanyId.current.value;
+        axios.post(`${window.base_url}/stockCode/getAll`, { "companyId": companyId })
+            .then(res => {
+                this.setState({ linkedStockCodes: res.data })
+                $("#select2").selectpicker('refresh');
+            });
 
     }
 
@@ -123,11 +132,11 @@ export default class AddEditIPO extends Component {
 
                     <div class="form align-items-center">
                         {!this.props.location.state &&
-                            <div class="col-sm-12 my-1">
-                                <label for="select1" class="col-sm-4 col-form-label">Select Company (...Companies without IPO...):</label>
+                            <div class="col-sm-12">
+                                <label for="select1" class="col-sm-12 col-form-label">Select Company (...Companies without IPO And With Stock Codes...):</label>
                                 <div class="row">
                                     <div class="col-sm-4 my-1">
-                                        <select class=" custom-select mr-sm-3 form-control my-1 " id="select1" name="companyId" required>
+                                        <select class=" custom-select mr-sm-3 form-control my-1 " id="select1" name="companyId" ref={this.mySearchCompanyId} onChange={this.getAvailStockExchanges} required>
                                             <option value="" class="font-weight-bold">Company List</option>
                                             {this.state.companyWithoutIpo.map((c, index) =>
                                                 <option value={c.id} key={index}>{c.companyName}</option>
@@ -138,11 +147,11 @@ export default class AddEditIPO extends Component {
                                 </div>
                             </div>
                         }
-                        <label for="select2" class="col-sm-5 col-form-label">Stock Exchanges :</label>
+                        <label for="select2" class="col-sm-5 col-form-label">Linked Stock Exchanges :</label>
                         <div class="col-sm-4 my-1">
-                            <select multiple class="selectpicker mr-sm-3 form-control my-1 font-weight-bold" id="select2" name="stockExchangeIds" required>
-                                {this.state.stockExchanges.map((fs, index) =>
-                                    <option key={index} value={fs.id} >{fs.stockExchangeName}</option>
+                            <select multiple class="selectpicker mr-sm-3 form-control my-1 font-weight-bold" id="select2" name="stockExchangeIds" ref={this.mySearchStockExchangeId} >
+                                {this.state.linkedStockCodes.map((sc, index) =>
+                                    <option key={index} value={sc.stockExchange.id} >{sc.stockExchange.stockExchangeName}</option>
                                 )}
                             </select>
                         </div>

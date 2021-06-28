@@ -22,7 +22,6 @@ export default class StockCodeList extends Component {
 
     componentDidMount() {
         this.refresh();
-
     }
 
     refresh() {
@@ -49,7 +48,6 @@ export default class StockCodeList extends Component {
 
 
     handleSubmit(e) {
-
         let body = {}
         const companyId = this.mySearchCompanyId.current.value
         const stockExchangeId = this.mySearchStockExchangeId.current.value
@@ -84,10 +82,10 @@ export default class StockCodeList extends Component {
 
     remove(e) {
         axios.post(`${window.base_url}/stockCode/remove`, {
-            "stockCodeId": e.target.parentNode.getAttribute("scid")
+            "stockCodeId": e.target.getAttribute("scid")
         })
             .then(res => {
-                this.refresh();
+                this.handleSubmit();
                 $('.toast-body').html(res.data);
                 $('.toast').toast('show');
 
@@ -102,11 +100,10 @@ export default class StockCodeList extends Component {
     render() {
         return (
             <div>
-                <div class="row">
+                <div class="row w-100">
                     <div class="col-md-5 ml-4">
                         <Link to={{ pathname: "/stockCode/addEdit" }}><button class="btn btn-success "><i className="fa fa-plus small" ></i> Stock Code</button></Link>
                     </div>
-
                     <form onChange={this.handleSubmit} action="#" method="post" class="ml-auto">
                         <div class="form-row align-items-center">
                             <div class="col-sm-2 ">
@@ -132,34 +129,39 @@ export default class StockCodeList extends Component {
                     </form>
                 </div>
 
-                <ul class="card container">
-                    {!this.state.stockCodes.length && <li>No Records Found</li>}
-                    {this.state.stockCodes.map((sc, index) =>
-                        <li class="card " key={index}>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    {index + 1}------&nbsp;  {sc.stockCode}
-                                </div>
-                                <div class="col-md-6">
-                                    {sc.company.companyName}&nbsp;
-                                    <strong>Listed in: </strong>{sc.stockExchange.stockExchangeName}
-                                </div>
+                <div class="text-center mb-5"><h3>Manage Stock Code</h3></div>
+                {!this.state.stockCodes.length && <li>No Records Found</li>}
+                {this.state.stockCodes.length > 0 &&
+                    <div class="card container">
+                        <table class="table  table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Stock Code No.</th>
+                                    <th>Company </th>
+                                    <th>Stock Exchange </th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.stockCodes.map((sc, index) =>
+                                    <tr key={index}>
+                                        <td>{sc.stockCode}</td>
+                                        <td> {sc.company.companyName}</td>
+                                        <td>{sc.stockExchange.stockExchangeName}</td>
+                                        <td><Link to={{
+                                            pathname: "/stockCode/addEdit", state: {
+                                                cid: sc.company.id, cname: sc.company.companyName,
+                                                seid: sc.stockExchange.id, sename: sc.stockExchange.stockExchangeName, scode: sc.stockCode, scid: sc.id
+                                            }
+                                        }}><button class="btn btn-dark">Edit</button></Link>
+                                            <button class="btn btn-danger mx-1" onClick={this.remove} scid={sc.id}>Delete</button></td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
 
-                                <div class=" col-md-3 text-right" scid={sc.id}>
-                                    <Link to={{
-                                        pathname: "/stockCode/addEdit", state: {
-                                            cid: sc.company.id, cname: sc.company.companyName,
-                                            seid: sc.stockExchange.id, sename: sc.stockExchange.stockExchangeName, scode: sc.stockCode, scid: sc.id
-                                        }
-                                    }}><button class="btn btn-dark">Edit</button></Link>
-                                    <button class="btn btn-danger" onClick={this.remove}>Delete</button>
-                                </div>
-
-                            </div>
-                        </li>
-                    )}
-                </ul>
-
+                    </div>
+                }
             </div>
         )
     }
