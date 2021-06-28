@@ -65,7 +65,7 @@ export default class CompanyList extends Component {
                 {this.state.stockExchange.stockCodes?.length > 0 && (
                     <div class="card text-center mt-2">
                         <div class="card-body">
-                            <h5 class="card-title">Stock Codes For different Companies in this Stock Exchange</h5>
+                            <h5 class="card-title">Stock Codes for different Companies in this Stock Exchange</h5>
                             <ul>
                                 {this.state.stockExchange.stockCodes.map((sc, index) =>
                                     <li class="card text-left " key={index}>
