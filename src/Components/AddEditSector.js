@@ -52,20 +52,20 @@ export default class AddEditSector extends Component {
                     {!this.props.location.state && <h4 class="text-center"> Add Sector</h4>}
 
                     <div class="form-group row">
-                        <label for="input1" class="col-md-2 col-sm-4 col-form-label">Sector Name</label>
-                        <div class="col-md-10 col-sm-8">
+                        <label for="input1" class="col-md-2 col-4 col-form-label">Sector Name</label>
+                        <div class="col-md-10 col-8">
                             <input type="text" class="form-control" id="input1" placeholder="Sector Name" name="sectorName" defaultValue={this.props.location.state?.sname} required />
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="input3" class="col-md-2 col-sm-4 col-form-label">Brief about Sector</label>
-                        <div class="col-md-10 col-sm-8">
+                        <label for="input3" class="col-md-2 col-4 col-form-label">Brief about Sector</label>
+                        <div class="col-md-10 col-8">
                             <input type="text" class="form-control" id="input3" placeholder="Sector Brief" name="brief" defaultValue={this.props.location.state?.sbrief} required />
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-sm-10">
+                        <div class="col-10">
                             <button type="submit" class="btn btn-primary" >Submit</button>
                         </div>
                     </div>

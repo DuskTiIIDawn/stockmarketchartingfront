@@ -56,7 +56,7 @@ export default class IPOList extends Component {
                 {!this.state.ipos.length > 0 && <li>No Records Found</li>}
                 {this.state.ipos.length > 0 &&
                     <div class="card container">
-                        <table class="table table-sm ">
+                        <table class="table table-sm  ">
                             <thead>
                                 <tr>
                                     <th>SNo.</th>

@@ -186,14 +186,14 @@ export default class Chart extends Component {
         return (
             <div class="overflow-hidden">
                 <div class="row " style={{ minHeight: '83vh' }}>
-                    <div class=" col col-md-3 col-sm-12 bg-light text-dark" >
+                    <div class=" col col-md-3 col-12 bg-light text-dark" >
                         <div class="container-fluid">
                             <div class="row justify-content-center align-items-center mt-2">
                                 <h2>Stock Price Charts</h2>
                             </div>
                             <hr />
                             <div class="row justify-content-center align-items-center">
-                                <div class="col col-sm-11 col-md-11 col-lg-11 col-xl-11 ">
+                                <div class="col col-11 col-md-11 col-lg-11 col-xl-11 ">
                                     <form action="#" onSubmit={this.getChartData}>
                                         <div class="form-group">
                                             <select class="custom-select mr-sm-3 form-control my-1 font-weight-bold" ref={this.mySearchCompanyId} onChange={this.enableStockExchange} required>
@@ -212,14 +212,14 @@ export default class Chart extends Component {
                                             </select>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="datetimepicker1" class="col-sm-2 col-form-label">From</label>
-                                            <div class="col-sm-10">
+                                            <label for="datetimepicker1" class="col-2 col-form-label">From</label>
+                                            <div class="col-10">
                                                 <input type="datetime-local" class="form-control datetime" id="datetimepicker1" name="startDate" onChange={this.enableEndDate} ref={this.myStartDate} required />
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="datetimepicker2" class="col-sm-2 col-form-label">To</label>
-                                            <div class="col-sm-10">
+                                            <label for="datetimepicker2" class="col-2 col-form-label">To</label>
+                                            <div class="col-10">
                                                 <input type="datetime-local" class="form-control datetime" id="datetimepicker2" name="endDate" ref={this.myEndDate} required />
                                             </div>
                                         </div>
@@ -237,7 +237,7 @@ export default class Chart extends Component {
                             </div>
                         </div>
                     </div>
-                    <div class=" col col-md-8 col-sm-11" style={{ minHeight: '73vh' }}>
+                    <div class=" col col-md-8 col-11" style={{ minHeight: '73vh' }}>
                         < ReactFC {...this.state.timeseriesDs} />
                     </div>
                 </div>

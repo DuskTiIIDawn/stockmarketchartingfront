@@ -110,20 +110,20 @@ export default class SeeStockPrice extends Component {
                 <form onSubmit={this.getStockPricesBetweenDates} action="#"  >
                     <div class="form-inline justify-content-center row">
                         <div class="form-group col-md-4  row ">
-                            <label for="stockCodeInput" class="col-sm-4 col-form-label">Stock Code No :</label>
-                            <div class="col-sm-8">
+                            <label for="stockCodeInput" class="col-4 col-form-label">Stock Code No :</label>
+                            <div class="col-8">
                                 <input type="number" class="form-control" id="stockCodeInput" name="stockCodeNo" onChange={this.enableStartDate} required />
                             </div>
                         </div>
                         <div class="form-group col-md-4   row">
-                            <label for="datetimepicker1" class="col-sm-2 col-form-label">From date</label>
-                            <div class="col-sm-6">
+                            <label for="datetimepicker1" class="col-2 col-form-label">From date</label>
+                            <div class="col-6">
                                 <input type="datetime-local" class="form-control datetime" id="datetimepicker1" name="startDate" onChange={this.enableEndDate} ref={this.myStartDate} required />
                             </div>
                         </div>
                         <div class="form-group col-md-4   row">
-                            <label for="datetimepicker2" class="col-sm-2 col-form-label">To date</label>
-                            <div class="col-sm-6">
+                            <label for="datetimepicker2" class="col-2 col-form-label">To date</label>
+                            <div class="col-6">
                                 <input type="datetime-local" class="form-control datetime" id="datetimepicker2" name="endDate" ref={this.myEndDate} required />
                             </div>
                         </div>

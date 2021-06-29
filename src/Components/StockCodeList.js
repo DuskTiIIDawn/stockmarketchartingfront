@@ -109,7 +109,7 @@ export default class StockCodeList extends Component {
                             <div class="col-md-2 d-sm-none d-md-block">
                                 <h5>Select :</h5>
                             </div>
-                            <div class="col-md-4  col-sm-6 ">
+                            <div class="col-md-4  col-6 ">
                                 <select class="custom-select  form-control  font-weight-bold" ref={this.mySearchCompanyId} required>
                                     <option value="**" class="font-weight-bold">All Companies</option>
                                     {this.state.uniqueCompanies.map((uc, index) =>
@@ -117,7 +117,7 @@ export default class StockCodeList extends Component {
                                     )}
                                 </select>
                             </div>
-                            <div class="col-md-4  col-sm-6">
+                            <div class="col-md-4  col-6">
                                 <select class="custom-select  form-control  font-weight-bold" ref={this.mySearchStockExchangeId} required>
                                     <option value="**" class="font-weight-bold">All Stock Exchange</option>
                                     {this.state.uniqueStockExchanges.map((us, index) =>

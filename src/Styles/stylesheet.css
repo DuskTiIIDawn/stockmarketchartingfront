@@ -52,7 +52,7 @@ h1{
     padding: .9em .4em;
     position: absolute;
     left: 50%;
-    width: 80%;
+    min-width:90%;
     height:110%;
     top: 50%;
     display: block;
