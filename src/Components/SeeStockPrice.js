@@ -107,29 +107,28 @@ export default class SeeStockPrice extends Component {
         return (
 
             <div>
-
                 <form onSubmit={this.getStockPricesBetweenDates} action="#"  >
-                    <div class="form-inline justify-content-center ">
-                        <div class="form-group col-sm-4 row ">
-                            <label for="stockCodeInput" class="col-sm-3 col-form-label">Stock Code No :</label>
-                            <div class="col-sm-9">
+                    <div class="form-inline justify-content-center row">
+                        <div class="form-group col-md-4  row ">
+                            <label for="stockCodeInput" class="col-sm-4 col-form-label">Stock Code No :</label>
+                            <div class="col-sm-8">
                                 <input type="number" class="form-control" id="stockCodeInput" name="stockCodeNo" onChange={this.enableStartDate} required />
                             </div>
                         </div>
-                        <div class="form-group col-sm-4 row">
+                        <div class="form-group col-md-4   row">
                             <label for="datetimepicker1" class="col-sm-2 col-form-label">From date</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-6">
                                 <input type="datetime-local" class="form-control datetime" id="datetimepicker1" name="startDate" onChange={this.enableEndDate} ref={this.myStartDate} required />
                             </div>
                         </div>
-                        <div class="form-group col-sm-4 row">
+                        <div class="form-group col-md-4   row">
                             <label for="datetimepicker2" class="col-sm-2 col-form-label">To date</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-6">
                                 <input type="datetime-local" class="form-control datetime" id="datetimepicker2" name="endDate" ref={this.myEndDate} required />
                             </div>
                         </div>
                     </div>
-                    <div class="text-center "> <button type="submit" class="btn btn-dark">Sort Stock Price Records</button></div>
+                    <div class="text-center  mt-2"> <button type="submit" class="btn btn-dark">Sort Stock Price Records</button></div>
 
                 </form>
 

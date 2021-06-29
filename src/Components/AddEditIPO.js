@@ -111,21 +111,21 @@ export default class AddEditIPO extends Component {
                     {!this.props.location.state && <h4 class="text-center"> Add IPO</h4>}
 
                     <div class="form-group row">
-                        <label for="input1" class="col-sm-2 col-form-label">Price Per Share</label>
-                        <div class="col-sm-10">
+                        <label for="input1" class="col-md-2 col-sm-5 col-form-label">Price Per Share</label>
+                        <div class="col-md-10 col-sm-7">
                             <input type="number" step="any" class="form-control" id="input1" placeholder="Price Per share " name="pricePerShare" defaultValue={this.state.ipo.pricePerShare} required />
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="input3" class="col-sm-2 col-form-label">Total No of shares</label>
-                        <div class="col-sm-10">
+                        <label for="input3" class="col-sm-5 col-md-2 col-form-label">Total No of shares</label>
+                        <div class="col-sm-7 col-md-10">
                             <input type="number" class="form-control" id="input3" placeholder="Total no of shares" name="totalNumberOfShares" defaultValue={this.state.ipo.totalNumberOfShares} required />
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="datetimepicker1" class="col-sm-2 col-form-label">Open date</label>
-                        <div class="col-sm-10">
+                        <label for="datetimepicker1" class="col-sm-5 col-md-2 col-form-label">Open date</label>
+                        <div class="col-sm-7 col-md-10">
                             <input type="datetime-local" class="form-control datetime" id="datetimepicker1" placeholder="Open Date time" name="openDateTime" defaultValue={this.state.ipo.openDateTime} required />
                         </div>
                     </div>
@@ -135,7 +135,7 @@ export default class AddEditIPO extends Component {
                             <div class="col-sm-12">
                                 <label for="select1" class="col-sm-12 col-form-label">Select Company (...Companies without IPO And With Stock Codes...):</label>
                                 <div class="row">
-                                    <div class="col-sm-4 my-1">
+                                    <div class="col-md-4 col-sm-10 my-1">
                                         <select class=" custom-select mr-sm-3 form-control my-1 " id="select1" name="companyId" ref={this.mySearchCompanyId} onChange={this.getAvailStockExchanges} required>
                                             <option value="" class="font-weight-bold">Company List</option>
                                             {this.state.companyWithoutIpo.map((c, index) =>
@@ -148,7 +148,7 @@ export default class AddEditIPO extends Component {
                             </div>
                         }
                         <label for="select2" class="col-sm-5 col-form-label">Linked Stock Exchanges :</label>
-                        <div class="col-sm-4 my-1">
+                        <div class="col-md-4 col-sm-10  my-1">
                             <select multiple class="selectpicker mr-sm-3 form-control my-1 font-weight-bold" id="select2" name="stockExchangeIds" ref={this.mySearchStockExchangeId} >
                                 {this.state.linkedStockCodes.map((sc, index) =>
                                     <option key={index} value={sc.stockExchange.id} >{sc.stockExchange.stockExchangeName}</option>

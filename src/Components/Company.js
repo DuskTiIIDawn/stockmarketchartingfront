@@ -64,14 +64,17 @@ export default class Company extends Component {
                     <div class="card text-center">
                         <div class="card-body">
                             <h5 class="card-title">Stock Codes In different Stock Exchanges</h5>
-                            <ul>
-                                {this.state.company.stockCodes.map((sc, index) =>
-                                    <li class="card text-left" key={index}>
-                                        {index + 1} &nbsp; {sc.stockCode} ------------------{sc.stockExchange.stockExchangeName}
-                                    </li>
-                                )}
-                            </ul>
-
+                            <table class="table table-sm ">
+                                <tbody>
+                                    {this.state.company.stockCodes.map((sc, index) =>
+                                        <tr key={index}>
+                                            <td>{index + 1}.</td>
+                                            <td>{sc.stockCode}</td>
+                                            <td>{sc.stockExchange.stockExchangeName}</td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 )}

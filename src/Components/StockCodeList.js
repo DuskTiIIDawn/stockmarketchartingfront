@@ -106,19 +106,19 @@ export default class StockCodeList extends Component {
                     </div>
                     <form onChange={this.handleSubmit} action="#" method="post" class="ml-auto">
                         <div class="form-row align-items-center">
-                            <div class="col-sm-2 ">
+                            <div class="col-md-2 d-sm-none d-md-block">
                                 <h5>Select :</h5>
                             </div>
-                            <div class="col-sm-4 my-1">
-                                <select class="custom-select mr-sm-3 form-control my-1 font-weight-bold" ref={this.mySearchCompanyId} required>
+                            <div class="col-md-4  col-sm-6 ">
+                                <select class="custom-select  form-control  font-weight-bold" ref={this.mySearchCompanyId} required>
                                     <option value="**" class="font-weight-bold">All Companies</option>
                                     {this.state.uniqueCompanies.map((uc, index) =>
                                         <option value={uc.id} key={index}>{uc.companyName}</option>
                                     )}
                                 </select>
                             </div>
-                            <div class="col-sm-4 my-1">
-                                <select class="custom-select mr-sm-3 form-control my-1 font-weight-bold" ref={this.mySearchStockExchangeId} required>
+                            <div class="col-md-4  col-sm-6">
+                                <select class="custom-select  form-control  font-weight-bold" ref={this.mySearchStockExchangeId} required>
                                     <option value="**" class="font-weight-bold">All Stock Exchange</option>
                                     {this.state.uniqueStockExchanges.map((us, index) =>
                                         <option value={us.id} key={index}>{us.stockExchangeName}</option>
@@ -153,7 +153,7 @@ export default class StockCodeList extends Component {
                                                 cid: sc.company.id, cname: sc.company.companyName,
                                                 seid: sc.stockExchange.id, sename: sc.stockExchange.stockExchangeName, scode: sc.stockCode, scid: sc.id
                                             }
-                                        }}><button class="btn btn-dark">Edit</button></Link>
+                                        }}><button class="btn btn-dark mx-1">Edit</button></Link>
                                             <button class="btn btn-danger mx-1" onClick={this.remove} scid={sc.id}>Delete</button></td>
                                     </tr>
                                 )}

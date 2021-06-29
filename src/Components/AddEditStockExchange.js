@@ -63,31 +63,31 @@ export default class AddEditStockExchange extends Component {
                     {!this.props.location.state && <h4 class="text-center"> Add Stock Exchange</h4>}
 
                     <div class="form-group row">
-                        <label for="input1" class="col-sm-2 col-form-label ">Stock Exchange Name</label>
-                        <div class="col-sm-10">
+                        <label for="input1" class="col-md-2 col-form-label ">Stock Exchange Name</label>
+                        <div class="col-md-10">
                             <input type="text" class="form-control" id="input1" placeholder="Stock Exchage Name" name="stockExchangeName" defaultValue={this.state.stockExchange?.stockExchangeName} required />
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="input2" class="col-sm-2 col-form-label">Brief</label>
-                        <div class="col-sm-10">
+                        <label for="input2" class="col-md-2 col-form-label">Brief</label>
+                        <div class="col-md-10">
                             <input type="text" step="any" class="form-control" id="input2" placeholder="brief" name="brief" defaultValue={this.state.stockExchange?.brief} required />
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="input3" class="col-sm-2 col-form-label">Contact Address</label>
-                        <div class="col-sm-10">
+                        <label for="input3" class="col-md-2 col-form-label">Contact Address</label>
+                        <div class="col-md-10">
                             <input type="text" class="form-control" id="input3" placeholder="Contact Address" name="contactAddress" defaultValue={this.state.stockExchange?.contactAddress} required />
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="input4" class="col-sm-2 col-form-label">Remarks</label>
-                        <div class="col-sm-10">
+                        <label for="input4" class="col-md-2 col-form-label">Remarks</label>
+                        <div class="col-md-10">
                             <input type="text" class="form-control" id="input4" placeholder="Remark" name="remarks" defaultValue={this.state.stockExchange?.remarks} required />
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-sm-10">
+                        <div class="col-md-10">
                             <button type="submit" class="btn btn-primary" >Submit</button>
                         </div>
                     </div>

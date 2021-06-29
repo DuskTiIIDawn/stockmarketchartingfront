@@ -95,8 +95,8 @@ export default class AddEditStockCode extends Component {
                     {this.props.location.state && <h4 class="text-center"> Edit Stock Code</h4>}
                     {!this.props.location.state && <h4 class="text-center"> Add New Stock Code</h4>}
                     <div class="form align-items-center">
-                        <label for="select1" class="col-sm-2 col-form-label">Select Company :</label>
-                        <div class="col-sm-4 my-1">
+                        <label for="select1" class="col-md-2 col-form-label">Select Company :</label>
+                        <div class="col-md-4 my-1">
                             <select class="custom-select mr-sm-3 form-control my-1 font-weight-bold" id="select1" ref={this.mySearchCompanyId} onChange={this.getAvailStockExchanges} required>
                                 {this.props.location.state && (<option value={this.props.location.state.cid} class="font-weight-bold" selected>{this.props.location.state.cname}</option>)}
                                 <option value="" class="font-weight-bold">Company List</option>
@@ -105,8 +105,8 @@ export default class AddEditStockCode extends Component {
                                 )}
                             </select>
                         </div>
-                        <label for="select2" class="col-sm-5 col-form-label">Available Unlinked Stock Exchanges :</label>
-                        <div class="col-sm-4 my-1">
+                        <label for="select2" class="col-md-5 col-form-label">Available Unlinked Stock Exchanges :</label>
+                        <div class="col-md-4 my-1">
                             <select class="custom-select mr-sm-3 form-control my-1 font-weight-bold" id="select2" ref={this.mySearchStockExchangeId} required>
                                 {this.props.location.state && (<option value={this.props.location.state.seid} class="font-weight-bold" selected>{this.props.location.state.sename}</option>)}
                                 <option value="" class="font-weight-bold">Stock Exchange List</option>

@@ -45,8 +45,8 @@ export default class Chart extends Component {
         timeseriesDs: {
             type: "timeseries",
             renderAt: "container",
-            width: "1000",
-            height: "600",
+            width: "100%",
+            height: "100%",
             dataSource
         }
     }
@@ -184,9 +184,9 @@ export default class Chart extends Component {
 
     render() {
         return (
-            <div class="overflow-hidden ">
-                <div class="row ">
-                    <div class=" col col-md-3  bg-light text-dark" >
+            <div class="overflow-hidden">
+                <div class="row " style={{ minHeight: '83vh' }}>
+                    <div class=" col col-md-3 col-sm-12 bg-light text-dark" >
                         <div class="container-fluid">
                             <div class="row justify-content-center align-items-center mt-2">
                                 <h2>Stock Price Charts</h2>
@@ -237,7 +237,7 @@ export default class Chart extends Component {
                             </div>
                         </div>
                     </div>
-                    <div class=" col col-md-9">
+                    <div class=" col col-md-8 col-sm-11" style={{ minHeight: '73vh' }}>
                         < ReactFC {...this.state.timeseriesDs} />
                     </div>
                 </div>

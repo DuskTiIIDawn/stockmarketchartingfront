@@ -91,16 +91,17 @@ export default class CompanyList extends Component {
   render() {
     return (
       <div class="w-100">
-
         <div class="row w-100">
-          <div class="col-md-8 ml-4">
+          <div class="col-md-8 ml-4 col-sm-3">
             <Link to="/company/addEdit"><button class="btn btn-success "><i className="fa fa-plus small" ></i> Company</button></Link>
           </div>
-          <form class="form-inline my-2 my-lg-0 col-md-4 ml-auto" action="#">
+          <form class="form-inline my-2 my-lg-0 col-md-4 ml-auto col-sm-7" action="#">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" onChange={this.handleSearchSubmit} required />
             <button class="btn btn-outline-success my-2 my-sm-0 " type="submit" disabled>Search</button>
           </form>
         </div>
+
+
         <div class="text-center mb-5 "><h3>Manage Companies</h3></div>
         {!this.state.companies.length > 0 && <li>No Records Found</li>}
         {this.state.companies.length > 0 &&
@@ -117,12 +118,12 @@ export default class CompanyList extends Component {
               <tbody>
                 {this.state.companies.map((company, index) =>
                   <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{company.companyName}</td>
-                    <td>{!company.sector && this.props.isAdmin && (
+                    <td class="col-sm-1 col-md-1">{index + 1}</td>
+                    <td class="col-sm-3 col-md-4">{company.companyName}</td>
+                    <td class="col-sm-7 col-md-4">{!company.sector && this.props.isAdmin && (
                       <form onSubmit={this.handleSectorAdd} action="#" method="post" cid={company.id}>
                         <div class="row">
-                          <div class="col-sm-6">
+                          <div class="col-sm-7">
                             <select class="custom-select mr-sm-2" id={company.id} name="sectorId" required>
                               <option value="">Select....</option>
                               {this.state.sectors.map((sector, index) =>
@@ -136,7 +137,7 @@ export default class CompanyList extends Component {
 
                       {company.sector && (
                         <div class="row">
-                          <div class="col-sm-6">
+                          <div class="col-sm-7">
                             <input type="text" class="form-control" id={company.id} name="sectorName" value={company.sector.sectorName} disabled />
                           </div>
                           {this.props.isAdmin &&
@@ -147,11 +148,11 @@ export default class CompanyList extends Component {
 
                     </td>
 
-                    <td>
+                    <td class="col-sm-1 col-md-3">
                       <div class="row">
-                        <Link to={{ pathname: "/company/info", state: { cid: company.id } }}><button class="btn btn-secondary">INFO</button></Link>
-                        {this.props.isAdmin && (<div>
-                          <Link to={{ pathname: "/company/addEdit", state: { cid: company.id } }}><button class="btn btn-dark mx-1">Edit</button></Link>
+                        <Link to={{ pathname: "/company/info", state: { cid: company.id } }} class="col-sm-11 col-md-4"><button class="btn btn-secondary mx-2">Info</button></Link>
+                        {this.props.isAdmin && (<div class="mx-1 col-sm-11 col-md-7">
+                          <Link to={{ pathname: "/company/addEdit", state: { cid: company.id } }} ><button class="btn btn-dark mx-1">Edit</button></Link>
                           <button class="btn btn-danger mx-1" onClick={this.remove} cid={company.id}>Delete</button>
                         </div>)
                         }
