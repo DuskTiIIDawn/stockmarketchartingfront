@@ -45,7 +45,7 @@ export default class SignUp extends React.Component {
         return (
 
             <div class="row w-100">
-                <div class=" card container col-md-4 shadow p-3  bg-white rounded mx-auto">
+                <div class="  card mx-auto col-9 col-md-4 shadow p-3  bg-white rounded mx-auto">
                     <div class="text-center">
                         <img src="/favicon.ico" id="icon" alt="User Icon" />
                         <h2>SignUp</h2>

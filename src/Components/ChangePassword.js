@@ -57,8 +57,7 @@ export default class ChangePassword extends React.Component {
         return (
 
             <div class="row w-100">
-                <div class=" card container col-md-4 shadow p-3 mb-5 bg-white rounded">
-
+                <div class=" card mx-auto col-md-4 col-9 shadow p-3 mb-5 bg-white rounded ">
                     <h2>Hii, {this.state.user?.userName} {this.state.user?.isAdmin === true && "(ADMIN)"} </h2>
 
                     <form onSubmit={this.handleSubmit}>

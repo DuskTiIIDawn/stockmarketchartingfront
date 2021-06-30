@@ -12,7 +12,7 @@ export default class Home extends Component {
 
     render() {
         return (
-            <div class="card container text-center">
+            <div class="card  col-md-7  mx-auto text-center">
                 <span class="my">Stock Market Charting</span>
             </div>
         )
