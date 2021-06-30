@@ -61,24 +61,24 @@ export default class IPOList extends Component {
                                 <tr>
                                     <th>SNo.</th>
                                     <th>By</th>
-                                    <th>Price Per Share(Rs)</th>
+                                    <th>PPS(Rs)</th>
                                     <th>Open Date</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {this.state.ipos.map((ipo, index) =>
-                                    <tr key={index}>
+                                    <tr key={index} >
                                         <td>{index + 1}</td>
                                         <td>{ipo.company.companyName}</td>
                                         <td> {ipo.pricePerShare}</td>
-                                        <td>{ipo.openDateTime[2]}/{ipo.openDateTime[1]}/{ipo.openDateTime[0]}
-                                            --- {ipo.openDateTime[3]}:{ipo.openDateTime[4]}</td>
+                                        <td>{ipo.openDateTime[2]}/{ipo.openDateTime[1]}/{ipo.openDateTime[0]}<br></br>
+                                            {ipo.openDateTime[3]}:{ipo.openDateTime[4]}</td>
                                         <td class="row">
                                             <Link to={{ pathname: "/ipo/info", state: { ipoid: ipo.id } }}><button class="btn btn-secondary mx-1">INFO</button></Link>
                                             {this.props.isAdmin && <div>
-                                                <Link to={{ pathname: "ipo/addEdit", state: { ipoid: ipo.id, cid: ipo.company.id } }} ><button class="btn btn-dark mx-1">Edit</button></Link>
-                                                <button class="btn btn-danger mx-1" onClick={this.remove} ipoid={ipo.id}>Delete</button>
+                                                <Link to={{ pathname: "ipo/addEdit", state: { ipoid: ipo.id, cid: ipo.company.id } }} ><button class="btn btn-dark mx-1 ">Edit</button></Link>
+                                                <button class="btn btn-danger mx-1 " onClick={this.remove} ipoid={ipo.id}>Delete</button>
                                             </div>
                                             }
                                         </td>

@@ -4,6 +4,12 @@ h1{
     
 }
 
+@media (max-width: 576px) { 
+html{
+font-size:8px;
+}
+}
+
 .loading-indicator:before {
     content: '';
     background: #000000cc;
