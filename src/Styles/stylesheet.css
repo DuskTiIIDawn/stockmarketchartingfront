@@ -43,7 +43,7 @@ h1{
     color:#343a40;
     font-weight: bold;
     text-decoration: none;
-    letter-spacing: -3px;
+    letter-spacing: -1px;
     margin: 0;
     position: absolute;
     top: 50%;
@@ -57,7 +57,7 @@ h1{
     padding: .9em .4em;
     position: absolute;
     left: 50%;
-    min-width:110%;
+    min-width:120%;
     height:110%;
     top: 50%;
     display: block;
