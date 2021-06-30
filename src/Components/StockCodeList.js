@@ -105,8 +105,8 @@ export default class StockCodeList extends Component {
                         <Link to={{ pathname: "/stockCode/addEdit" }}><button class="btn btn-success "><i className="fa fa-plus small" ></i> Stock Code</button></Link>
                     </div>
                     <form onChange={this.handleSubmit} action="#" method="post" class="ml-auto">
-                        <div class="form-row align-items-center">
-                            <div class="col-md-2 d-sm-none d-md-block">
+                        <div class="form-row align-items-center container">
+                            <div class="col-md-2 d-none d-md-block">
                                 <h5>Select :</h5>
                             </div>
                             <div class="col-md-4  col-6 ">
