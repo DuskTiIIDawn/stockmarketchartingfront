@@ -1,7 +1,6 @@
 h1{
     font-family: 'Josefin Sans', sans-serif;
-    font-size:4vw;
-    
+    font-size:4vw;  
 }
 
 @media (max-width: 576px){
@@ -90,10 +89,6 @@ h1{
     font-weight:bold;
     font-size:1.5rem;        
 }
-
-
-  
-  
   .my {
     color: #fffbf1;
     text-shadow: 0 20px 25px #2e2e31, 0 40px 60px #2e2e31;
