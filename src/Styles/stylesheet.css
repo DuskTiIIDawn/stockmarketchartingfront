@@ -5,7 +5,10 @@ h1{
 
 @media (max-width: 576px){
   html{
-    font-size:8px;
+    font-size:8px!important;
+  }
+  .chart-height{
+    height:60vh;
   }
 
   .loading-indicator:before {
@@ -66,6 +69,9 @@ h1{
 }
 
 @media (min-width: 576px) { 
+  .chart-height{
+    height:80vh;
+  }
   .loading-indicator:before {
     content: '';
     background: #000000cc;

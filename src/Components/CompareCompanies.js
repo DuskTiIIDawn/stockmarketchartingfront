@@ -14,6 +14,7 @@ ReactFC.fcRoot(FusionCharts, TimeSeries, FusionTheme);
 
 
 const dataSource = {
+
     caption: {
         text: "Stock Price Analysis"
     },
@@ -237,7 +238,7 @@ export default class Chart extends Component {
                             </div>
                         </div>
                     </div>
-                    <div class=" col col-md-8 col-11" style={{ minHeight: '73vh' }}>
+                    <div class=" col col-md-8 col-11 chart-height" >
                         < ReactFC {...this.state.timeseriesDs} />
                     </div>
                 </div>
